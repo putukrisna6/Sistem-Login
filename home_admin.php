@@ -13,6 +13,19 @@
             document.location='home_user.php';
           </script>";
   }
+
+  require_once "koneksi.php";
+  if (isset($_GET['page'])) {
+    if($_GET['page'] == "delete") {
+      $delete = mysqli_query($koneksi, "DELETE FROM tuser WHERE id = '$_GET[id]'");
+      if($delete) {
+        echo "<script>
+                alert('Delete Success');
+                document.location='home_admin.php';
+              </script>";
+      }
+    }
+  }
  ?>
 
 <!DOCTYPE html>
@@ -31,9 +44,7 @@
 
 <body>
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
-        <div class="container">
-          
-          <a class="navbar-brand logo" href="#"><img id="main-logo" src="assets/img/logo/logo.png"><strong>IDS </strong>Dashboard</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand logo" href="#"><img id="main-logo" src="assets/img/logo/logo.png"><strong>IDS </strong>Dashboard</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div
                 class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
@@ -55,57 +66,41 @@
             </div>
         <section>
         <section class="clean-block features">
-          <div class="user-body"><span class="heading">Your Performance</span>
-                <p>This is a placeholder performance</p>
-                <hr style="border:3px solid #f1f1f1">
-                <div class="rg-row">
-                    <div class="side">
-                        <div>
-                            <p>Speech</p>
-                        </div>
-                    </div>
-                    <div class="middle">
-                        <div class="bar-container">
-                            <div class="bar-5"></div>
-                        </div>
-                    </div>
-                    <div class="side right">
-                        <div>
-                            <p>150</p>
-                        </div>
-                    </div>
-                    <div class="side">
-                        <div>
-                            <p>Adjudication</p>
-                        </div>
-                    </div>
-                    <div class="middle">
-                        <div class="bar-container">
-                            <div class="bar-4"></div>
-                        </div>
-                    </div>
-                    <div class="side right">
-                        <div>
-                            <p>63</p>
-                        </div>
-                    </div>
-                    <div class="side">
-                        <div>
-                            <p>Framing</p>
-                        </div>
-                    </div>
-                    <div class="middle">
-                        <div class="bar-container">
-                            <div class="bar-3"></div>
-                        </div>
-                    </div>
-                    <div class="side right">
-                        <div>
-                            <p>15</p>
-                        </div>
-                    </div>
+          <div class="container">
+            <div class="card">
+              <div class="heading" style="margin: 10px;">
+                  <h3 class="text-center">User List</h3>
+                  <a href="admin/add_user.php" class="btn btn-success">Add</a>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped">
+                    <tr>
+                      <th>No.</th>
+                      <th>Username</th>
+                      <th>Nama</th>
+                      <th>Aksi</th>
+                    </tr>
+                    <?php
+                      $no = 1;
+                      $tampil = mysqli_query($koneksi, "SELECT * FROM tuser WHERE level LIKE 'User' ORDER BY id ASC");
+                      while($data = mysqli_fetch_array($tampil)) :
+                     ?>
+                    <tr>
+                      <td><?=$no++?></td>
+                      <td><?=$data['username']?></td>
+                      <td><?=$data['full_name']?></td>
+                      <td>
+                        <a href="admin/edit_user.php?page=edit&id=<?=$data['id']?>" class="btn btn-warning text-white">Edit</a>
+                        <a href="home_admin.php?page=delete&id=<?=$data['id']?>" onclick="return confirm('Are you sure?')" class="btn btn-danger">Del</a>
+                      </td>
+                    </tr>
+                    <?php endwhile; ?>
+                  </table>
                 </div>
+              </div>
             </div>
+          </div>
         </section>
     </main>
     <footer class="page-footer dark">
