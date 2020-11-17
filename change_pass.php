@@ -29,14 +29,14 @@
     else {
       echo "<script>
               alert('Please reconfirm new password');
-              document.location='index.php';
+              document.location='edit_profile.php';
             </script>";
     }
   }
   else {
     echo "<script>
             alert('The entered old password does not match');
-            document.location='index.php';
+            document.location='edit_profile.php';
           </script>";
   }
  ?>
