@@ -176,6 +176,7 @@ html, body {
 #main-logo {
   height: 60px;
   margin-right: 20px;
+  margin-top: -5px;
 }
 
 #logo_login {
