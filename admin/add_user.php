@@ -21,8 +21,14 @@
                                       (username, full_name, password, level)
                                       VALUES
                                       ('$_POST[username]', '$_POST[full_name]', '$default_pass', 'User')
-                          ");
-    if($simpan) {
+                                      ");
+    $prev_id = mysqli_query($koneksi, "SELECT * FROM tuser WHERE username = '$_POST[username]' AND level = 'User'");
+    $fetch_prev = mysqli_fetch_array($prev_id);
+    $simpan_details = mysqli_query($koneksi, "INSERT INTO tuser_details
+                                              (tuser_id, nrp, departemen, jabatan, email, hp)
+                                              VALUES ('$fetch_prev[id]', '0', 'default', 'default', 'example@mail.com', '911')
+                                              ");
+    if($simpan and $simpan_details) {
       echo "<script>
               alert('Success');
               document.location='../home_admin.php';

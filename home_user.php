@@ -36,7 +36,7 @@
                 class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link active" href="home_user.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="edit_profile.php">Edit Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="user/profile.php">Profile</a></li>
                 </ul>
         </div>
         </div>

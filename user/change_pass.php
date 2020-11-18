@@ -1,5 +1,5 @@
 <?php
-  require_once "koneksi.php";
+  require_once "../koneksi.php";
 
   $old_password = md5($_POST['old_pass']);
   $id = $_POST['user_id'];
@@ -22,21 +22,21 @@
       if($change) {
         echo "<script>
                 alert('Password is changed');
-                document.location='index.php';
+                document.location='profile.php';
               </script>";
       }
     }
     else {
       echo "<script>
               alert('Please reconfirm new password');
-              document.location='edit_profile.php';
+              document.location='profile.php#change_password';
             </script>";
     }
   }
   else {
     echo "<script>
             alert('The entered old password does not match');
-            document.location='edit_profile.php';
+            document.location='profile.php#change_password';
           </script>";
   }
  ?>
